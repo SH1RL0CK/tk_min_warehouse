@@ -101,6 +101,12 @@ void WarehouseController::editPalettInCompartment(
 
 void WarehouseController::removePalettFromCompartment(unsigned int compartmentId)
 {
-
+    ShelfCompartment *compartment = searchForCompartment(compartmentId);
+    Palett *palett = compartment->palett;
+    if (compartment != nullptr && palett != nullptr)
+    {
+        compartment->palett = nullptr;
+        delete palett;
+    }
 }
 
