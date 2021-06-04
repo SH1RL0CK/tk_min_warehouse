@@ -90,7 +90,13 @@ void WarehouseController::editPalettInCompartment(
         unsigned int newNumberOfProducts
 )
 {
-
+    ShelfCompartment *compartment = searchForCompartment(compartmentId);
+    if (compartment != nullptr && compartment->palett != nullptr)
+    {
+        compartment->palett->productType = newProductType;
+        compartment->palett->productName = newProductName;
+        compartment->palett->numberOfProducts = newNumberOfProducts;
+    }
 }
 
 void WarehouseController::removePalettFromCompartment(unsigned int compartmentId)
