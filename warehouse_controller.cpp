@@ -76,7 +76,11 @@ void WarehouseController::storePalettInCompartment(
         unsigned int numberOfProducts
 )
 {
-
+    ShelfCompartment *compartment = searchForCompartment(compartmentId);
+    if (compartment != nullptr)
+    {
+        compartment->palett = new Palett(productType, productName, numberOfProducts);
+    }
 }
 
 void WarehouseController::editPalettInCompartment(
