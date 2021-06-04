@@ -37,11 +37,15 @@ void WarehouseController::createWarehouseList()
     unsigned int firstCompartmentId = 10101;
     firstCompartment = new ShelfCompartment(firstCompartmentId);
     ShelfCompartment *tmpCompartment = firstCompartment;
-    for (unsigned int i = 1; i <= numberOfShelves; i++){
-        for (unsigned int j = 1; j <= numberOfRows; j++){
-            for (unsigned int k = 1; k <= numberOfCompartments; k++){
+    for (unsigned int i = 1; i <= numberOfShelves; i++)
+    {
+        for (unsigned int j = 1; j <= numberOfRows; j++)
+        {
+            for (unsigned int k = 1; k <= numberOfCompartments; k++)
+            {
                 unsigned int compartmentId = i * 10000 + j * 100 + k;
-                if (compartmentId == firstCompartmentId){
+                if (compartmentId == firstCompartmentId)
+                {
                     continue;
                 }
                 tmpCompartment->nextCompartment = new ShelfCompartment(compartmentId);
@@ -53,7 +57,16 @@ void WarehouseController::createWarehouseList()
 
 ShelfCompartment *WarehouseController::searchForCompartment(unsigned int id)
 {
-
+    ShelfCompartment *tmpCompartment = firstCompartment;
+    while (tmpCompartment != nullptr)
+    {
+        if (tmpCompartment->id == id)
+        {
+            return tmpCompartment;
+        }
+        tmpCompartment = tmpCompartment->nextCompartment;
+    }
+    return nullptr;
 }
 
 void WarehouseController::storePalettInCompartment(
