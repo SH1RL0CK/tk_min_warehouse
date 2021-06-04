@@ -24,6 +24,9 @@ struct ShelfCompartment
 class WarehouseController
 {
 private:
+    unsigned int numberOfShelves;
+    unsigned int numberOfRows;
+    unsigned int numberOfCompartments;
     ShelfCompartment *firstCompartment;
 public:
     WarehouseController();
