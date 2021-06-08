@@ -13,3 +13,18 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
+
+void MainWindow::on_shelfNumberInput_valueChanged(int newShelfNumber)
+{
+
+}
+
+void MainWindow::on_rowNumberInput_valueChanged(int newRowNumber)
+{
+
+}
+
+void MainWindow::on_compartmentNumberInput_valueChanged(int newCompartmentNumber)
+{
+
+}
