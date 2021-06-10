@@ -8,8 +8,6 @@ MainWindow::MainWindow(QWidget *parent)
     , warehosueController(new WarehouseController())
 {
     ui->setupUi(this);
-    setUp();
-    warehosueController->storePalettInCompartment(10101, "Pizza Salami", 12);
     displayCurrentCompartment();
 }
 
@@ -28,6 +26,24 @@ unsigned int MainWindow::getCurrentCompartmentId()
 
 void MainWindow::displayCurrentCompartment()
 {
+    unsigned int currentCompartmentId = getCurrentCompartmentId();
+    ShelfCompartment *currentCompartment = warehosueController->searchForCompartment(currentCompartmentId);
+    Palett *palett = currentCompartment->getPalett();
+    if(currentCompartment != nullptr)
+    {
+        if(palett == nullptr)
+        {
+            ui->compartmentContainsPalettOutput->setText("Nein");
+            ui->productNameInput->setCurrentIndex(-1);
+            ui->numberOfProductsInput->setValue(1);
+        }
+        else
+        {
+            ui->compartmentContainsPalettOutput->setText("Ja");
+            ui->productNameInput->setCurrentText(palett->productName);
+            ui->numberOfProductsInput->setValue(palett->numberOfProducts);
+        }
+    }
 }
 
 void MainWindow::on_shelfNumberInput_valueChanged(int newShelfNumber)
