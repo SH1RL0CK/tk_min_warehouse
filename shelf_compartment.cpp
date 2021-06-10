@@ -1,8 +1,7 @@
 #include "shelf_compartment.h"
 
-Palett::Palett(QString _productType, QString _productName, unsigned int _numberOfProducts)
-    : productType(_productType)
-    , productName(_productName)
+Palett::Palett(QString _productName, unsigned int _numberOfProducts)
+    : productName(_productName)
     , numberOfProducts(_numberOfProducts)
 {}
 

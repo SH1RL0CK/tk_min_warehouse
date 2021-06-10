@@ -5,10 +5,9 @@
 
 struct Palett
 {
-    QString productType;
     QString productName;
     unsigned int numberOfProducts;
-    Palett(QString _productType, QString _productName, unsigned int _numberOfProducts);
+    Palett(QString _productName, unsigned int _numberOfProducts);
 };
 
 class ShelfCompartment

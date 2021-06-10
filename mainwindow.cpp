@@ -1,5 +1,6 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+#include <QDebug>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -7,6 +8,8 @@ MainWindow::MainWindow(QWidget *parent)
     , warehosueController(new WarehouseController())
 {
     ui->setupUi(this);
+    setUp();
+    warehosueController->storePalettInCompartment(10101, "Pizza Salami", 12);
     displayCurrentCompartment();
 }
 
