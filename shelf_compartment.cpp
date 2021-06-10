@@ -1,6 +1,6 @@
 #include "shelf_compartment.h"
 
-Palett::Palett(ProductType _productType, QString _productName, unsigned int _numberOfProducts)
+Palett::Palett(QString _productType, QString _productName, unsigned int _numberOfProducts)
     : productType(_productType)
     , productName(_productName)
     , numberOfProducts(_numberOfProducts)
@@ -37,6 +37,7 @@ ShelfCompartment *ShelfCompartment::getNextCompartment() const
     return nextCompartment;
 }
 
-int ShelfCompartment::createId(unsigned int shelfNumber, unsigned int rowNumber, unsigned int compartmentNumber){
+int ShelfCompartment::createId(unsigned int shelfNumber, unsigned int rowNumber, unsigned int compartmentNumber)
+{
     return shelfNumber * 10000 + rowNumber * 100 + compartmentNumber;
 }

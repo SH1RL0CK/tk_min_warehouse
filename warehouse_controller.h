@@ -1,6 +1,7 @@
 #ifndef WAREHOUSECONTROLLER_H
 #define WAREHOUSECONTROLLER_H
 
+#include <vector>
 #include <QString>
 #include "shelf_compartment.h"
 
@@ -10,22 +11,27 @@ private:
     unsigned int numberOfShelves;
     unsigned int numberOfRows;
     unsigned int numberOfCompartments;
+    std::vector<QString> productTypes;
+    std::vector<QString> iceCreams;
+    std::vector<QString> pizzas;
     ShelfCompartment *firstCompartment;
 public:
     WarehouseController();
-    void setFirstCompartment(ShelfCompartment *_firstCompartment);
+    std::vector<QString> getProductTypes() const;
+    std::vector<QString> getPizzas() const;
+    std::vector<QString> getIceCreams() const;
     ShelfCompartment *getFirstCompartment() const;
     void createWarehouseList();
     ShelfCompartment *searchForCompartment(unsigned int id);
     void storePalettInCompartment(
             unsigned int compartmentId,
-            ProductType productType,
+            QString productType,
             QString productName,
             unsigned int numberOfProducts
      );
     void editPalettInCompartment(
             unsigned int compartmentId,
-            ProductType newProductType,
+            QString newProductType,
             QString newProductName,
             unsigned int newNumberOfProducts
      );
