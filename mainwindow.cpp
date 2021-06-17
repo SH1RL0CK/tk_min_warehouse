@@ -6,6 +6,7 @@ MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
     , warehosueController(new WarehouseController())
+    , currentCompartment(nullptr)
 {
     ui->setupUi(this);
     displayCurrentCompartment();
@@ -27,22 +28,27 @@ unsigned int MainWindow::getCurrentCompartmentId()
 void MainWindow::displayCurrentCompartment()
 {
     unsigned int currentCompartmentId = getCurrentCompartmentId();
-    ShelfCompartment *currentCompartment = warehosueController->searchForCompartment(currentCompartmentId);
+    currentCompartment = warehosueController->searchForCompartment(currentCompartmentId);
     Palett *palett = currentCompartment->getPalett();
-    if(currentCompartment != nullptr)
+    if(currentCompartment == nullptr)
     {
-        if(palett == nullptr)
-        {
-            ui->compartmentContainsPalettOutput->setText("Nein");
-            ui->productNameInput->setCurrentIndex(-1);
-            ui->numberOfProductsInput->setValue(1);
-        }
-        else
-        {
-            ui->compartmentContainsPalettOutput->setText("Ja");
-            ui->productNameInput->setCurrentText(palett->productName);
-            ui->numberOfProductsInput->setValue(palett->numberOfProducts);
-        }
+        return;
+    }
+    if(palett == nullptr)
+    {
+        ui->compartmentContainsPalettOutput->setText("Nein");
+        ui->productNameInput->setCurrentIndex(-1);
+        ui->numberOfProductsInput->setValue(1);
+        ui->storeOrEditPalettButton->setText("Palette einlagern");
+        ui->removePalettButton->hide();
+    }
+    else
+    {
+        ui->compartmentContainsPalettOutput->setText("Ja");
+        ui->productNameInput->setCurrentText(palett->productName);
+        ui->numberOfProductsInput->setValue(palett->numberOfProducts);
+        ui->storeOrEditPalettButton->setText("Änderungen speichern");
+        ui->removePalettButton->show();
     }
 }
 
@@ -58,5 +64,34 @@ void MainWindow::on_rowNumberInput_valueChanged(int newRowNumber)
 
 void MainWindow::on_compartmentNumberInput_valueChanged(int newCompartmentNumber)
 {
+    displayCurrentCompartment();
+}
+
+void MainWindow::on_storeOrEditPalettButton_clicked()
+{
+    if(currentCompartment == nullptr)
+    {
+        return;
+    }
+    int currentCompartmentId = currentCompartment->getId();
+    QString productName = ui->productNameInput->currentText();
+    int numberOfProducts = ui->numberOfProductsInput->value();
+    if(currentCompartment->getPalett() == nullptr){
+        warehosueController->storePalettInCompartment(currentCompartmentId, productName, numberOfProducts);
+    }
+    else
+    {
+        warehosueController->editPalettInCompartment(currentCompartmentId, productName, numberOfProducts);
+    }
+    displayCurrentCompartment();
+}
+
+void MainWindow::on_removePalettButton_clicked()
+{
+    if(currentCompartment == nullptr)
+    {
+        return;
+    }
+    warehosueController->removePalettFromCompartment(currentCompartment->getId());
     displayCurrentCompartment();
 }

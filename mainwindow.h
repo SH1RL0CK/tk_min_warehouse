@@ -15,6 +15,7 @@ class MainWindow : public QMainWindow
 private:
     Ui::MainWindow *ui;
     WarehouseController *warehosueController;
+    ShelfCompartment *currentCompartment;
     unsigned int getCurrentCompartmentId();
     void displayCurrentCompartment();
 
@@ -22,6 +23,10 @@ private slots:
     void on_shelfNumberInput_valueChanged(int newShelfNumber);
     void on_rowNumberInput_valueChanged(int newRowNumber);
     void on_compartmentNumberInput_valueChanged(int newCompartmentNumber);
+
+    void on_storeOrEditPalettButton_clicked();
+
+    void on_removePalettButton_clicked();
 
 public:
     MainWindow(QWidget *parent = nullptr);
