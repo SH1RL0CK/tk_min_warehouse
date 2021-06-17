@@ -10,10 +10,14 @@ CONFIG += c++11
 
 SOURCES += \
     main.cpp \
-    mainwindow.cpp
+    mainwindow.cpp \
+    shelf_compartment.cpp \
+    warehouse_controller.cpp
 
 HEADERS += \
-    mainwindow.h
+    mainwindow.h \
+    shelf_compartment.h \
+    warehouse_controller.h
 
 FORMS += \
     mainwindow.ui

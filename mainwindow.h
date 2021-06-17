@@ -2,6 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include "warehouse_controller.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -11,11 +12,24 @@ class MainWindow : public QMainWindow
 {
     Q_OBJECT
 
+private:
+    Ui::MainWindow *ui;
+    WarehouseController *warehosueController;
+    ShelfCompartment *currentCompartment;
+    unsigned int getCurrentCompartmentId();
+    void displayCurrentCompartment();
+
+private slots:
+    void on_shelfNumberInput_valueChanged(int newShelfNumber);
+    void on_rowNumberInput_valueChanged(int newRowNumber);
+    void on_compartmentNumberInput_valueChanged(int newCompartmentNumber);
+
+    void on_storeOrEditPalettButton_clicked();
+
+    void on_removePalettButton_clicked();
+
 public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
-
-private:
-    Ui::MainWindow *ui;
 };
 #endif // MAINWINDOW_H
