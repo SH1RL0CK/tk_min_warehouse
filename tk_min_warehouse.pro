@@ -12,12 +12,14 @@ SOURCES += \
     main.cpp \
     mainwindow.cpp \
     shelf_compartment.cpp \
+    temperature_sensor.cpp \
     warehouse_controller.cpp \
     whole_warehouse_dialog.cpp
 
 HEADERS += \
     mainwindow.h \
     shelf_compartment.h \
+    temperature_sensor.h \
     warehouse_controller.h \
     whole_warehouse_dialog.h
 
