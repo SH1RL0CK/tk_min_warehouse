@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>984</width>
-    <height>600</height>
+    <height>623</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -291,6 +291,56 @@
        <property name="text">
         <string>Gesamtes Lager anzeigen</string>
        </property>
+      </widget>
+     </item>
+    </layout>
+   </widget>
+   <widget class="QWidget" name="verticalLayoutWidget_2">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>380</y>
+      <width>411</width>
+      <height>211</height>
+     </rect>
+    </property>
+    <layout class="QVBoxLayout" name="verticalLayout_2">
+     <item>
+      <widget class="QLabel" name="label_11">
+       <property name="font">
+        <font>
+         <pointsize>12</pointsize>
+         <weight>75</weight>
+         <bold>true</bold>
+        </font>
+       </property>
+       <property name="text">
+        <string>Temperatursensoren</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QTableWidget" name="temperatureSensorsTable">
+       <column>
+        <property name="text">
+         <string>Sensor-ID</string>
+        </property>
+       </column>
+       <column>
+        <property name="text">
+         <string>Uhrzeit</string>
+        </property>
+       </column>
+       <column>
+        <property name="text">
+         <string>Temperatur</string>
+        </property>
+       </column>
+       <column>
+        <property name="text">
+         <string>Nachricht</string>
+        </property>
+       </column>
       </widget>
      </item>
     </layout>

@@ -18,16 +18,14 @@ private:
     ShelfCompartment *currentCompartment;
     unsigned int getCurrentCompartmentId();
     void displayCurrentCompartment();
+    void diplayTemperatureSensorsResults();
 
 private slots:
     void on_shelfNumberInput_valueChanged(int newShelfNumber);
     void on_rowNumberInput_valueChanged(int newRowNumber);
     void on_compartmentNumberInput_valueChanged(int newCompartmentNumber);
-
     void on_storeOrEditPalettButton_clicked();
-
     void on_removePalettButton_clicked();
-
     void on_displayWholeWarehouseButton_clicked();
 
 public:

@@ -52,6 +52,14 @@ void MainWindow::displayCurrentCompartment()
     }
 }
 
+void MainWindow::diplayTemperatureSensorsResults()
+{
+    for (; ; )
+    {
+
+    }
+}
+
 void MainWindow::on_shelfNumberInput_valueChanged(int newShelfNumber)
 {
     displayCurrentCompartment();
