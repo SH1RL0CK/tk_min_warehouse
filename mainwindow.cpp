@@ -37,7 +37,7 @@ void MainWindow::displayCurrentCompartment()
     if(palett == nullptr)
     {
         ui->compartmentContainsPalettOutput->setText("Nein");
-        ui->productNameInput->setCurrentIndex(-1);
+        ui->productNameInput->setCurrentIndex(0);
         ui->numberOfProductsInput->setValue(1);
         ui->storeOrEditPalettButton->setText("Palette einlagern");
         ui->removePalettButton->hide();
@@ -98,7 +98,7 @@ void MainWindow::on_removePalettButton_clicked()
 
 void MainWindow::on_displayWholeWarehouseButton_clicked()
 {
-    WholeWarehouseDialog wholeWarehouseDialog;
+    WholeWarehouseDialog wholeWarehouseDialog(warehosueController);
     wholeWarehouseDialog.setModal(true);
     wholeWarehouseDialog.setWindowTitle("Gesamtes Lager anzeigen");
     wholeWarehouseDialog.exec();
