@@ -1,16 +1,19 @@
 #ifndef TEMPERATURESENSOR_H
 #define TEMPERATURESENSOR_H
+
+#include <stdlib.h>
+#include <time.h>
 #include <QDateTime>
 
 class TemperatureSensor
 {
 private:
-    int id;
+    unsigned int id;
 
 public:
-    TemperatureSensor();
-    void getMeasurementResult(float &temperature, QDateTime &time);
-    float simulateMeasurement();
+    TemperatureSensor(unsigned int id);
+    void getMeasurementResult(double &temperature, QDateTime &time);
+    double simulateMeasurement();
 };
 
 #endif // TEMPERATURESENSOR_H
