@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>WholeWarehouseDialog</class>
+ <widget class="QDialog" name="WholeWarehouseDialog">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>708</width>
+    <height>509</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Dialog</string>
+  </property>
+  <widget class="QTableWidget" name="warehouseTable">
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>10</y>
+     <width>671</width>
+     <height>471</height>
+    </rect>
+   </property>
+   <column>
+    <property name="text">
+     <string>Regalreihe</string>
+    </property>
+   </column>
+   <column>
+    <property name="text">
+     <string>Regalboden</string>
+    </property>
+   </column>
+   <column>
+    <property name="text">
+     <string>Regalfach</string>
+    </property>
+   </column>
+   <column>
+    <property name="text">
+     <string>Enthält Palette</string>
+    </property>
+   </column>
+   <column>
+    <property name="text">
+     <string>Produktname</string>
+    </property>
+   </column>
+   <column>
+    <property name="text">
+     <string>Anzahl</string>
+    </property>
+   </column>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

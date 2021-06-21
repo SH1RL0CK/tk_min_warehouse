@@ -23,6 +23,7 @@ public:
     unsigned int getId() const;
     Palett *getPalett() const;
     ShelfCompartment *getNextCompartment() const;
+    void extractLocationFromId(unsigned int &shelfNumber, unsigned int &rowNumber, unsigned int &compartmentNumber);
     static int createId(unsigned int shelfNumber, unsigned int rowNumber,  unsigned int compartmentNumber);
 };
 

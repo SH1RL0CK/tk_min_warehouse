@@ -1,6 +1,6 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-#include <QDebug>
+#include "whole_warehouse_dialog.h"
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -37,7 +37,7 @@ void MainWindow::displayCurrentCompartment()
     if(palett == nullptr)
     {
         ui->compartmentContainsPalettOutput->setText("Nein");
-        ui->productNameInput->setCurrentIndex(-1);
+        ui->productNameInput->setCurrentIndex(0);
         ui->numberOfProductsInput->setValue(1);
         ui->storeOrEditPalettButton->setText("Palette einlagern");
         ui->removePalettButton->hide();
@@ -94,4 +94,12 @@ void MainWindow::on_removePalettButton_clicked()
     }
     warehosueController->removePalettFromCompartment(currentCompartment->getId());
     displayCurrentCompartment();
+}
+
+void MainWindow::on_displayWholeWarehouseButton_clicked()
+{
+    WholeWarehouseDialog wholeWarehouseDialog(warehosueController);
+    wholeWarehouseDialog.setModal(true);
+    wholeWarehouseDialog.setWindowTitle("Gesamtes Lager anzeigen");
+    wholeWarehouseDialog.exec();
 }

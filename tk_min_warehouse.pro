@@ -12,15 +12,18 @@ SOURCES += \
     main.cpp \
     mainwindow.cpp \
     shelf_compartment.cpp \
-    warehouse_controller.cpp
+    warehouse_controller.cpp \
+    whole_warehouse_dialog.cpp
 
 HEADERS += \
     mainwindow.h \
     shelf_compartment.h \
-    warehouse_controller.h
+    warehouse_controller.h \
+    whole_warehouse_dialog.h
 
 FORMS += \
-    mainwindow.ui
+    mainwindow.ui \
+    whole_warehouse_dialog.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
