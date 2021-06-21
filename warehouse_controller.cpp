@@ -4,14 +4,22 @@ WarehouseController::WarehouseController()
     : numberOfShelves(20)
     , numberOfRows(20)
     , numberOfCompartments(50)
+    , numberOfTemperatureSensors(10)
     , firstCompartment(nullptr)
+    , temperatureSensors(std::vector<TemperatureSensor*>(numberOfTemperatureSensors))
 {
     createWarehouseList();
+    createTemperatureSensors();
 }
 
 ShelfCompartment *WarehouseController::getFirstCompartment() const
 {
     return firstCompartment;
+}
+
+std::vector<TemperatureSensor*> WarehouseController::getTemperatureSensors() const
+{
+    return temperatureSensors;
 }
 
 void WarehouseController::createWarehouseList()
@@ -34,6 +42,14 @@ void WarehouseController::createWarehouseList()
                 tmpCompartment = tmpCompartment->getNextCompartment();
             }
         }
+    }
+}
+
+void WarehouseController::createTemperatureSensors()
+{
+    for(unsigned int i = 0; i < numberOfTemperatureSensors; i++)
+    {
+       temperatureSensors[i] = new TemperatureSensor(i);
     }
 }
 
