@@ -1,6 +1,6 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-#include <QDebug>
+#include "whole_warehouse_dialog.h"
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -94,4 +94,12 @@ void MainWindow::on_removePalettButton_clicked()
     }
     warehosueController->removePalettFromCompartment(currentCompartment->getId());
     displayCurrentCompartment();
+}
+
+void MainWindow::on_displayWholeWarehouseButton_clicked()
+{
+    WholeWarehouseDialog wholeWarehouseDialog;
+    wholeWarehouseDialog.setModal(true);
+    wholeWarehouseDialog.setWindowTitle("Gesamtes Lager anzeigen");
+    wholeWarehouseDialog.exec();
 }

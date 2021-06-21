@@ -28,6 +28,8 @@ private slots:
 
     void on_removePalettButton_clicked();
 
+    void on_displayWholeWarehouseButton_clicked();
+
 public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
