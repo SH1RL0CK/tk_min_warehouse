@@ -6,6 +6,11 @@ TemperatureSensor::TemperatureSensor(unsigned int _id)
      srand(time(NULL));
 }
 
+unsigned int TemperatureSensor::getId() const
+{
+    return id;
+}
+
 void TemperatureSensor::getMeasurementResult(double &temperature, QDateTime &time)
 {
     temperature = simulateMeasurement();

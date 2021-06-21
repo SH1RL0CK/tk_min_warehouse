@@ -300,7 +300,7 @@
      <rect>
       <x>10</x>
       <y>380</y>
-      <width>411</width>
+      <width>431</width>
       <height>211</height>
      </rect>
     </property>
@@ -328,7 +328,7 @@
        </column>
        <column>
         <property name="text">
-         <string>Uhrzeit</string>
+         <string>Messzeit</string>
         </property>
        </column>
        <column>

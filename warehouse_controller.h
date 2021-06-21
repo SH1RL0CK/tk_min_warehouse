@@ -13,6 +13,7 @@ private:
     unsigned int numberOfRows;
     unsigned int numberOfCompartments;
     unsigned int numberOfTemperatureSensors;
+
     ShelfCompartment *firstCompartment;
     std::vector<TemperatureSensor*> temperatureSensors;
 public:

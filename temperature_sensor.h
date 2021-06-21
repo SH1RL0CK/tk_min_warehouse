@@ -12,6 +12,7 @@ private:
 
 public:
     TemperatureSensor(unsigned int id);
+    unsigned int getId() const;
     void getMeasurementResult(double &temperature, QDateTime &time);
     double simulateMeasurement();
 };

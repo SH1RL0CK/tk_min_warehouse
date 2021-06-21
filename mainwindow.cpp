@@ -9,12 +9,23 @@ MainWindow::MainWindow(QWidget *parent)
     , currentCompartment(nullptr)
 {
     ui->setupUi(this);
+    setUp();
     displayCurrentCompartment();
+    displayTemperatureSensorsResults();
 }
 
 MainWindow::~MainWindow()
 {
     delete ui;
+}
+
+void MainWindow::setUp()
+{
+    ui->temperatureSensorsTable->setEditTriggers(QAbstractItemView::NoEditTriggers);
+    for (unsigned int i = 0; i < warehosueController->getTemperatureSensors().size(); i++)
+    {
+        ui->temperatureSensorsTable->insertRow(i);
+    }
 }
 
 unsigned int MainWindow::getCurrentCompartmentId()
@@ -52,12 +63,19 @@ void MainWindow::displayCurrentCompartment()
     }
 }
 
-void MainWindow::diplayTemperatureSensorsResults()
+void MainWindow::displayTemperatureSensorsResults()
 {
-    for (; ; )
+    for (unsigned int i = 0; i < warehosueController->getTemperatureSensors().size(); i++)
     {
-
+        TemperatureSensor *sensor = warehosueController->getTemperatureSensors()[i];
+        double temperature = 0.0;
+        QDateTime time;
+        sensor->getMeasurementResult(temperature, time);
+        ui->temperatureSensorsTable->setItem(i, 0, new QTableWidgetItem(QString::number(sensor->getId())));
+        ui->temperatureSensorsTable->setItem(i, 1, new QTableWidgetItem(time.toString("dd.MM hh:mm:ss")));
+        ui->temperatureSensorsTable->setItem(i, 2, new QTableWidgetItem(QString::number(temperature) + "°C"));
     }
+     QTimer::singleShot(2000, this, SLOT(displayTemperatureSensorsResults()));
 }
 
 void MainWindow::on_shelfNumberInput_valueChanged(int newShelfNumber)
