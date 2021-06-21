@@ -36,6 +36,13 @@ ShelfCompartment *ShelfCompartment::getNextCompartment() const
     return nextCompartment;
 }
 
+void ShelfCompartment::extractLocationFromId(unsigned int &shelfNumber, unsigned int &rowNumber, unsigned int &compartmentNumber)
+{
+    shelfNumber = id / 10000;
+    rowNumber = (id - shelfNumber * 10000) / 100;
+    compartmentNumber = id - shelfNumber * 10000 - rowNumber * 100;
+}
+
 int ShelfCompartment::createId(unsigned int shelfNumber, unsigned int rowNumber, unsigned int compartmentNumber)
 {
     return shelfNumber * 10000 + rowNumber * 100 + compartmentNumber;
