@@ -43,7 +43,6 @@ bool DatabaseManager::compartmentTableIsIsComplete()
     {
         if(currentQuery.first())
         {
-            qDebug() << currentQuery.value(0).toInt();
             if(currentQuery.value(0).toInt() != numberOfShelves * numberOfRows * numberOfCompartments)
                 return false;
         }
