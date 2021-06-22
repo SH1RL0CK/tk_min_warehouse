@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1022</width>
-    <height>737</height>
+    <width>1600</width>
+    <height>750</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -348,9 +348,9 @@
    <widget class="QGraphicsView" name="virtualWarehouse">
     <property name="geometry">
      <rect>
-      <x>560</x>
+      <x>540</x>
       <y>70</y>
-      <width>440</width>
+      <width>1040</width>
       <height>620</height>
      </rect>
     </property>

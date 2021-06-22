@@ -37,12 +37,12 @@ void MainWindow::setUp()
 void MainWindow::drawVirtualWarehouse()
 {
     QGraphicsScene *scene = new QGraphicsScene();
-    scene->setSceneRect(0,0, 420, 600);
-    for(unsigned int i = 0; i < warehosueController->getNumberOfShelves() + 1; i++)
+    scene->setSceneRect(0,0, 1020, 600);
+    for(unsigned int i = 0; i < warehosueController->getNumberOfCompartments() + 1; i++)
     {
-        for(unsigned int j = 0; j < warehosueController->getNumberOfRows(); j++)
+        for(unsigned int j = 0; j < warehosueController->getNumberOfShelves(); j++)
         {
-            if(i == warehosueController->getNumberOfShelves()/2)
+            if(i == warehosueController->getNumberOfCompartments()/2)
             {
                 i++;
             }
@@ -93,12 +93,12 @@ void MainWindow::displayLocationOfCurrentCompartment()
 {
     unsigned int shelfNumber = 0, rowNumber = 0, compartmentNumber = 0;
     currentCompartment->extractLocationFromId(shelfNumber, rowNumber, compartmentNumber);
-    if(shelfNumber - 1 >= warehosueController->getNumberOfShelves()/2)
+    if(compartmentNumber - 1 >= warehosueController->getNumberOfCompartments()/2)
     {
-        shelfNumber++;
+        compartmentNumber++;
     }
-    currentCompartmentRect->setX((shelfNumber - 1) * 20);
-    currentCompartmentRect->setY((rowNumber - 1) * 30);
+    currentCompartmentRect->setX((compartmentNumber - 1) * 20);
+    currentCompartmentRect->setY((shelfNumber - 1) * 30);
 }
 
 void MainWindow::displayTemperatureSensorsResults()
