@@ -18,6 +18,9 @@ private:
     std::vector<TemperatureSensor*> temperatureSensors;
 public:
     WarehouseController();
+    unsigned int getNumberOfShelves() const;
+    unsigned int getNumberOfRows() const;
+    unsigned int getNumberOfCompartments() const;
     ShelfCompartment *getFirstCompartment() const;
     std::vector<TemperatureSensor*> getTemperatureSensors() const;
     void createWarehouseList();

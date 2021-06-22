@@ -12,6 +12,21 @@ WarehouseController::WarehouseController()
     createTemperatureSensors();
 }
 
+unsigned int WarehouseController::getNumberOfShelves() const
+{
+    return numberOfShelves;
+}
+
+unsigned int WarehouseController::getNumberOfRows() const
+{
+    return numberOfRows;
+}
+
+unsigned int WarehouseController::getNumberOfCompartments() const
+{
+    return numberOfCompartments;
+}
+
 ShelfCompartment *WarehouseController::getFirstCompartment() const
 {
     return firstCompartment;

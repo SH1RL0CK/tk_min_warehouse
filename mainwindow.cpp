@@ -7,11 +7,10 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow)
     , warehosueController(new WarehouseController())
     , currentCompartment(nullptr)
+    , virtualWarehouseScene(new QGraphicsScene())
 {
     ui->setupUi(this);
     setUp();
-    displayCurrentCompartment();
-    displayTemperatureSensorsResults();
 }
 
 MainWindow::~MainWindow()
@@ -26,6 +25,29 @@ void MainWindow::setUp()
     {
         ui->temperatureSensorsTable->insertRow(i);
     }
+    ui->virtualWarehouse->setScene(virtualWarehouseScene);
+    drawVirtualWarehouse();
+    displayCurrentCompartment();
+    displayTemperatureSensorsResults();
+}
+
+void MainWindow::drawVirtualWarehouse()
+{
+    QGraphicsScene *scene = new QGraphicsScene();
+    scene->setSceneRect(0,0, 420, 600);
+    for(unsigned int i = 0; i < warehosueController->getNumberOfShelves() + 1; i++)
+    {
+        for(unsigned int j = 0; j < warehosueController->getNumberOfRows(); j++)
+        {
+            if(i == warehosueController->getNumberOfShelves()/2)
+            {
+                i++;
+            }
+            QGraphicsRectItem *compartmentRect = new QGraphicsRectItem(i * 20, j * 30 ,20, 20);
+            compartmentRect->setBrush(QColor(150,75,0));
+            virtualWarehouseScene->addItem(compartmentRect);
+        }
+     }
 }
 
 unsigned int MainWindow::getCurrentCompartmentId()
@@ -65,7 +87,7 @@ void MainWindow::displayCurrentCompartment()
 
 void MainWindow::displayTemperatureSensorsResults()
 {
-    for (unsigned int i = 0; i < warehosueController->getTemperatureSensors().size(); i++)
+    for(unsigned int i = 0; i < warehosueController->getTemperatureSensors().size(); i++)
     {
         TemperatureSensor *sensor = warehosueController->getTemperatureSensors()[i];
         double temperature = 0.0;
