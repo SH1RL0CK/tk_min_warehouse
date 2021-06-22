@@ -7,11 +7,11 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow)
     , warehosueController(new WarehouseController())
     , currentCompartment(nullptr)
+    , virtualWarehouseScene(new QGraphicsScene())
+    , currentCompartmentRect(new QGraphicsRectItem(0, 0, 20, 20))
 {
     ui->setupUi(this);
     setUp();
-    displayCurrentCompartment();
-    displayTemperatureSensorsResults();
 }
 
 MainWindow::~MainWindow()
@@ -26,6 +26,31 @@ void MainWindow::setUp()
     {
         ui->temperatureSensorsTable->insertRow(i);
     }
+    ui->virtualWarehouse->setScene(virtualWarehouseScene);
+    currentCompartmentRect->setBrush(Qt::red);
+    drawVirtualWarehouse();
+    virtualWarehouseScene->addItem(currentCompartmentRect);
+    displayCurrentCompartment();
+    displayTemperatureSensorsResults();
+}
+
+void MainWindow::drawVirtualWarehouse()
+{
+    QGraphicsScene *scene = new QGraphicsScene();
+    scene->setSceneRect(0,0, 1020, 600);
+    for(unsigned int i = 0; i < warehosueController->getNumberOfCompartments() + 1; i++)
+    {
+        for(unsigned int j = 0; j < warehosueController->getNumberOfShelves(); j++)
+        {
+            if(i == warehosueController->getNumberOfCompartments()/2)
+            {
+                i++;
+            }
+            QGraphicsRectItem *compartmentRect = new QGraphicsRectItem(i * 20, j * 30 ,20, 20);
+            compartmentRect->setBrush(QColor(150,75,0));
+            virtualWarehouseScene->addItem(compartmentRect);
+        }
+     }
 }
 
 unsigned int MainWindow::getCurrentCompartmentId()
@@ -61,11 +86,24 @@ void MainWindow::displayCurrentCompartment()
         ui->storeOrEditPalettButton->setText("Änderungen speichern");
         ui->removePalettButton->show();
     }
+    displayLocationOfCurrentCompartment();
+}
+
+void MainWindow::displayLocationOfCurrentCompartment()
+{
+    unsigned int shelfNumber = 0, rowNumber = 0, compartmentNumber = 0;
+    currentCompartment->extractLocationFromId(shelfNumber, rowNumber, compartmentNumber);
+    if(compartmentNumber - 1 >= warehosueController->getNumberOfCompartments()/2)
+    {
+        compartmentNumber++;
+    }
+    currentCompartmentRect->setX((compartmentNumber - 1) * 20);
+    currentCompartmentRect->setY((shelfNumber - 1) * 30);
 }
 
 void MainWindow::displayTemperatureSensorsResults()
 {
-    for (unsigned int i = 0; i < warehosueController->getTemperatureSensors().size(); i++)
+    for(unsigned int i = 0; i < warehosueController->getTemperatureSensors().size(); i++)
     {
         TemperatureSensor *sensor = warehosueController->getTemperatureSensors()[i];
         double temperature = 0.0;
