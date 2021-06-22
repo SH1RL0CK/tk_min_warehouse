@@ -40,6 +40,8 @@ std::vector<TemperatureSensor*> WarehouseController::getTemperatureSensors() con
 
 void WarehouseController::createWarehouseList()
 {
+    firstCompartment = dbManager->createCompartmentsList();
+    /*
     unsigned int firstCompartmentId = 10101;
     firstCompartment = new ShelfCompartment(firstCompartmentId);
     ShelfCompartment *tmpCompartment = firstCompartment;
@@ -59,6 +61,7 @@ void WarehouseController::createWarehouseList()
             }
         }
     }
+    */
 }
 
 void WarehouseController::createTemperatureSensors()

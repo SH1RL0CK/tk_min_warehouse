@@ -19,8 +19,7 @@ void DatabaseManager::setUp()
     database.setDatabaseName("tk_min_warehouse.db");
     if(database.open())
     {
-        QSqlQuery createTableQuery;
-        if(!createTableQuery.exec(
+        if(!currentQuery.exec(
                     "CREATE TABLE IF NOT EXISTS compartment ("
                         "compartment_id INT PRIMARY KEY NOT NULL, "
                         "contains_palett BOOLEAN NOT NULL, "
@@ -40,11 +39,10 @@ void DatabaseManager::setUp()
 bool DatabaseManager::compartmentTableIsIsComplete()
 {
 
-    QSqlQuery numberOfComaprtmentsQuery;
-    if(numberOfComaprtmentsQuery.exec("SELECT COUNT(*) FROM compartment;"))
+    if(currentQuery.exec("SELECT COUNT(*) FROM compartment;"))
     {
-        if(numberOfComaprtmentsQuery.first())
-            if(numberOfComaprtmentsQuery.value(0).toInt() != numberOfShelves * numberOfRows * numberOfCompartments)
+        if(currentQuery.first())
+            if(currentQuery.value(0).toInt() != numberOfShelves * numberOfRows * numberOfCompartments)
                 return false;
     }
     else
@@ -55,10 +53,8 @@ bool DatabaseManager::compartmentTableIsIsComplete()
 
 void DatabaseManager::fillCompartmentTable()
 {
-    QSqlQuery clearTableQUery;
-    clearTableQUery.exec("DELETE FROM compartment;");
-    QSqlQuery insertQuery;
-    QString query = "INSERT INTO compartment (compartment_id, contains_palett) VALUES ";
+    currentQuery.exec("DELETE FROM compartment;");
+    QString queryCommand = "INSERT INTO compartment (compartment_id, contains_palett) VALUES ";
     for (unsigned int i = 1; i <= numberOfShelves; i++)
     {
         for (unsigned int j = 1; j <= numberOfRows; j++)
@@ -66,16 +62,42 @@ void DatabaseManager::fillCompartmentTable()
             for (unsigned int k = 1; k <= numberOfCompartments; k++)
             {
                 unsigned int compartmentId = ShelfCompartment::createId(i, j, k);
-                query += QString("(" + QString::number(compartmentId) + ", 0)");
+                queryCommand += QString("(" + QString::number(compartmentId) + ", 0)");
                 if(i == numberOfShelves && j == numberOfRows && k == numberOfCompartments)
-                    query += QString(";");
+                    queryCommand += QString(";");
                 else
-                    query += QString(", ");
+                    queryCommand += QString(", ");
             }
         }
     }
-    if(!insertQuery.exec(query))
-       qWarning() << "Es trat ein Fehler beim Eintragen eines Regalfachs in die Tabelle auf!";
-    qWarning() << insertQuery.lastError().text();
+    if(!currentQuery.exec(queryCommand))
+        qWarning() << "Es trat ein Fehler beim Eintragen eines Regalfachs in die Tabelle auf!";
 }
+
+ShelfCompartment *DatabaseManager::readCompartmentFromQuery()
+{
+    ShelfCompartment *newCompartment = new ShelfCompartment(currentQuery.value(0).toInt());
+    if(currentQuery.value(1).toBool())
+        newCompartment->setPalett(new Palett(currentQuery.value(2).toString(), currentQuery.value(3).toInt()));
+    return newCompartment;
+}
+
+ShelfCompartment *DatabaseManager::createCompartmentsList()
+{
+    ShelfCompartment *firstCompartment = nullptr, *tmpCompartment = nullptr;
+    if(!currentQuery.exec("SELECT * FROM compartment ORDER BY compartment_id;"))
+        qWarning() << "Es trat ein Fehler beim Auslesen der Regalfächer aus der Datenbank auf!";
+    if(currentQuery.next())
+    {
+        firstCompartment = readCompartmentFromQuery();
+        tmpCompartment = firstCompartment;
+        while(currentQuery.next())
+        {
+            tmpCompartment->setNextCompartment(readCompartmentFromQuery());
+            tmpCompartment = tmpCompartment->getNextCompartment();
+        }
+    }
+    return firstCompartment;
+}
+
 
