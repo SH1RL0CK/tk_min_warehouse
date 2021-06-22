@@ -8,6 +8,7 @@ MainWindow::MainWindow(QWidget *parent)
     , warehosueController(new WarehouseController())
     , currentCompartment(nullptr)
     , virtualWarehouseScene(new QGraphicsScene())
+    , currentCompartmentRect(new QGraphicsRectItem(0, 0, 20, 20))
 {
     ui->setupUi(this);
     setUp();
@@ -26,7 +27,9 @@ void MainWindow::setUp()
         ui->temperatureSensorsTable->insertRow(i);
     }
     ui->virtualWarehouse->setScene(virtualWarehouseScene);
+    currentCompartmentRect->setBrush(Qt::red);
     drawVirtualWarehouse();
+    virtualWarehouseScene->addItem(currentCompartmentRect);
     displayCurrentCompartment();
     displayTemperatureSensorsResults();
 }
@@ -83,6 +86,19 @@ void MainWindow::displayCurrentCompartment()
         ui->storeOrEditPalettButton->setText("Änderungen speichern");
         ui->removePalettButton->show();
     }
+    displayLocationOfCurrentCompartment();
+}
+
+void MainWindow::displayLocationOfCurrentCompartment()
+{
+    unsigned int shelfNumber = 0, rowNumber = 0, compartmentNumber = 0;
+    currentCompartment->extractLocationFromId(shelfNumber, rowNumber, compartmentNumber);
+    if(shelfNumber - 1 >= warehosueController->getNumberOfShelves()/2)
+    {
+        shelfNumber++;
+    }
+    currentCompartmentRect->setX((shelfNumber - 1) * 20);
+    currentCompartmentRect->setY((rowNumber - 1) * 30);
 }
 
 void MainWindow::displayTemperatureSensorsResults()

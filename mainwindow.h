@@ -21,10 +21,12 @@ private:
     WarehouseController *warehosueController;
     ShelfCompartment *currentCompartment;
     QGraphicsScene *virtualWarehouseScene;
+    QGraphicsRectItem *currentCompartmentRect;
     void setUp();
     void drawVirtualWarehouse();
     unsigned int getCurrentCompartmentId();
     void displayCurrentCompartment();
+    void displayLocationOfCurrentCompartment();
 
 private slots:
     void on_shelfNumberInput_valueChanged(int newShelfNumber);
