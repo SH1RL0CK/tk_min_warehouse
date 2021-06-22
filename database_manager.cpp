@@ -26,7 +26,7 @@ void DatabaseManager::setUp()
                         "productname VARCHAR, "
                         "number_of_products INT"
                     ");"
-                  )
+           )
         )
            qWarning() << "Es gab ein Problem bei dem Erstellen der Tabelle für die Regalfächer!";
         if(!compartmentTableIsIsComplete())
@@ -42,8 +42,11 @@ bool DatabaseManager::compartmentTableIsIsComplete()
     if(currentQuery.exec("SELECT COUNT(*) FROM compartment;"))
     {
         if(currentQuery.first())
+        {
+            qDebug() << currentQuery.value(0).toInt();
             if(currentQuery.value(0).toInt() != numberOfShelves * numberOfRows * numberOfCompartments)
                 return false;
+        }
     }
     else
         qWarning() << "Es gab ein Problem bei dem Lesen der Regalfächer von der Datenbank!";
@@ -71,7 +74,8 @@ void DatabaseManager::fillCompartmentTable()
         }
     }
     if(!currentQuery.exec(queryCommand))
-        qWarning() << "Es trat ein Fehler beim Eintragen eines Regalfachs in die Tabelle auf!";
+        qWarning() << "Es trat ein Fehler beim Eintragen eines Regalfachs in die Datenbank auf!";
+
 }
 
 ShelfCompartment *DatabaseManager::readCompartmentFromQuery()
@@ -98,6 +102,29 @@ ShelfCompartment *DatabaseManager::createCompartmentsList()
         }
     }
     return firstCompartment;
+}
+
+void DatabaseManager::updateCompartment(ShelfCompartment *compartment)
+{
+    currentQuery.prepare(
+                "UPDATE compartment "
+                "SET contains_palett = ?, productname = ?, number_of_products = ? "
+                "WHERE compartment_id = ?"
+    );
+    currentQuery.bindValue(0, compartment->getPalett() != nullptr);
+    if(compartment->getPalett() == nullptr)
+    {
+        currentQuery.bindValue(1, QVariant(QVariant::String));
+        currentQuery.bindValue(2, QVariant(QVariant::Int));
+    }
+    else
+    {
+        currentQuery.bindValue(1, compartment->getPalett()->productName);
+        currentQuery.bindValue(2, compartment->getPalett()->numberOfProducts);
+    }
+    currentQuery.bindValue(3, compartment->getId());
+    if(!currentQuery.exec())
+        qWarning() << "Es tratt ein Fehler beim Verändern eines Regalfachs in der Datenbank auf.";
 }
 
 

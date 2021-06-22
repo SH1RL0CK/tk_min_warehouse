@@ -14,9 +14,10 @@ private:
     unsigned int numberOfRows;
     unsigned int numberOfCompartments;
     unsigned int numberOfTemperatureSensors;
-    ShelfCompartment *firstCompartment;
     DatabaseManager *dbManager;
+    ShelfCompartment *firstCompartment;
     std::vector<TemperatureSensor*> temperatureSensors;
+    void createTemperatureSensors();
 public:
     WarehouseController();
     unsigned int getNumberOfShelves() const;
@@ -24,8 +25,6 @@ public:
     unsigned int getNumberOfCompartments() const;
     ShelfCompartment *getFirstCompartment() const;
     std::vector<TemperatureSensor*> getTemperatureSensors() const;
-    void createWarehouseList();
-    void createTemperatureSensors();
     ShelfCompartment *searchForCompartment(unsigned int id);
     void storePalettInCompartment(
             unsigned int compartmentId,

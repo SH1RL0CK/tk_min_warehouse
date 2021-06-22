@@ -27,6 +27,7 @@ public:
         unsigned int _numberOfCompartments
     );
     ShelfCompartment *createCompartmentsList();
+    void updateCompartment(ShelfCompartment *compartment);
 };
 
 #endif // DATABASEMANAGER_H
