@@ -5,10 +5,10 @@ WarehouseController::WarehouseController()
     , numberOfRows(20)
     , numberOfCompartments(50)
     , numberOfTemperatureSensors(10)
-    , firstCompartment(nullptr)
+    , dbManager(new DatabaseManager(numberOfShelves, numberOfRows, numberOfCompartments))
+    , firstCompartment(dbManager->createCompartmentsList())
     , temperatureSensors(std::vector<TemperatureSensor*>(numberOfTemperatureSensors))
 {
-    createWarehouseList();
     createTemperatureSensors();
 }
 
@@ -35,29 +35,6 @@ ShelfCompartment *WarehouseController::getFirstCompartment() const
 std::vector<TemperatureSensor*> WarehouseController::getTemperatureSensors() const
 {
     return temperatureSensors;
-}
-
-void WarehouseController::createWarehouseList()
-{
-    unsigned int firstCompartmentId = 10101;
-    firstCompartment = new ShelfCompartment(firstCompartmentId);
-    ShelfCompartment *tmpCompartment = firstCompartment;
-    for (unsigned int i = 1; i <= numberOfShelves; i++)
-    {
-        for (unsigned int j = 1; j <= numberOfRows; j++)
-        {
-            for (unsigned int k = 1; k <= numberOfCompartments; k++)
-            {
-                unsigned int compartmentId = ShelfCompartment::createId(i, j, k);
-                if (compartmentId == firstCompartmentId)
-                {
-                    continue;
-                }
-                tmpCompartment->setNextCompartment(new ShelfCompartment(compartmentId));
-                tmpCompartment = tmpCompartment->getNextCompartment();
-            }
-        }
-    }
 }
 
 void WarehouseController::createTemperatureSensors()
@@ -93,6 +70,7 @@ void WarehouseController::storePalettInCompartment(
     {
         compartment->setPalett(new Palett(productName, numberOfProducts));
     }
+    dbManager->updateCompartment(compartment);
 }
 
 void WarehouseController::editPalettInCompartment(
@@ -107,6 +85,7 @@ void WarehouseController::editPalettInCompartment(
         compartment->getPalett()->productName = newProductName;
         compartment->getPalett()->numberOfProducts = newNumberOfProducts;
     }
+    dbManager->updateCompartment(compartment);
 }
 
 void WarehouseController::removePalettFromCompartment(unsigned int compartmentId)
@@ -118,5 +97,6 @@ void WarehouseController::removePalettFromCompartment(unsigned int compartmentId
         compartment->setPalett(nullptr);
         delete palett;
     }
+    dbManager->updateCompartment(compartment);
 }
 
