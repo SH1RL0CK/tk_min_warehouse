@@ -1,4 +1,4 @@
-QT       += core gui
+QT       += core gui sql
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -9,6 +9,7 @@ CONFIG += c++11
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    database_manager.cpp \
     main.cpp \
     mainwindow.cpp \
     shelf_compartment.cpp \
@@ -17,6 +18,7 @@ SOURCES += \
     whole_warehouse_dialog.cpp
 
 HEADERS += \
+    database_manager.h \
     mainwindow.h \
     shelf_compartment.h \
     temperature_sensor.h \

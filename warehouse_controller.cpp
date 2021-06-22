@@ -6,6 +6,7 @@ WarehouseController::WarehouseController()
     , numberOfCompartments(50)
     , numberOfTemperatureSensors(10)
     , firstCompartment(nullptr)
+    , dbManager(new DatabaseManager(numberOfShelves, numberOfRows, numberOfCompartments))
     , temperatureSensors(std::vector<TemperatureSensor*>(numberOfTemperatureSensors))
 {
     createWarehouseList();

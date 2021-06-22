@@ -4,6 +4,7 @@
 #include <vector>
 #include <QString>
 #include "shelf_compartment.h"
+#include "database_manager.h"
 #include "temperature_sensor.h"
 
 class WarehouseController
@@ -14,6 +15,7 @@ private:
     unsigned int numberOfCompartments;
     unsigned int numberOfTemperatureSensors;
     ShelfCompartment *firstCompartment;
+    DatabaseManager *dbManager;
     std::vector<TemperatureSensor*> temperatureSensors;
 public:
     WarehouseController();
