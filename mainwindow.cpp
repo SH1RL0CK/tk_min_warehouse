@@ -74,8 +74,17 @@ void MainWindow::displayTemperatureSensorsResults()
         ui->temperatureSensorsTable->setItem(i, 0, new QTableWidgetItem(QString::number(sensor->getId())));
         ui->temperatureSensorsTable->setItem(i, 1, new QTableWidgetItem(time.toString("dd.MM hh:mm:ss")));
         ui->temperatureSensorsTable->setItem(i, 2, new QTableWidgetItem(QString::number(temperature) + "°C"));
+        if(temperature > -18.0)
+        {
+            QMessageBox::warning(this, "Warnung!", "Sensor " + QString::number(sensor->getId()) + " misst eine Temperatur von mehr als -18°C!!!");
+            ui->temperatureSensorsTable->setItem(i, 3, new QTableWidgetItem("Warnung: Temperatur zu hoch!"));
+        }
+        else
+        {
+            ui->temperatureSensorsTable->setItem(i, 3, new QTableWidgetItem("Temperatur in Ordnung"));
+        }
     }
-     QTimer::singleShot(2000, this, SLOT(displayTemperatureSensorsResults()));
+     QTimer::singleShot(5000, this, SLOT(displayTemperatureSensorsResults()));
 }
 
 void MainWindow::on_shelfNumberInput_valueChanged(int newShelfNumber)
