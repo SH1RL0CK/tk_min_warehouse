@@ -9,12 +9,23 @@ MainWindow::MainWindow(QWidget *parent)
     , currentCompartment(nullptr)
 {
     ui->setupUi(this);
+    setUp();
     displayCurrentCompartment();
+    displayTemperatureSensorsResults();
 }
 
 MainWindow::~MainWindow()
 {
     delete ui;
+}
+
+void MainWindow::setUp()
+{
+    ui->temperatureSensorsTable->setEditTriggers(QAbstractItemView::NoEditTriggers);
+    for (unsigned int i = 0; i < warehosueController->getTemperatureSensors().size(); i++)
+    {
+        ui->temperatureSensorsTable->insertRow(i);
+    }
 }
 
 unsigned int MainWindow::getCurrentCompartmentId()
@@ -50,6 +61,30 @@ void MainWindow::displayCurrentCompartment()
         ui->storeOrEditPalettButton->setText("Änderungen speichern");
         ui->removePalettButton->show();
     }
+}
+
+void MainWindow::displayTemperatureSensorsResults()
+{
+    for (unsigned int i = 0; i < warehosueController->getTemperatureSensors().size(); i++)
+    {
+        TemperatureSensor *sensor = warehosueController->getTemperatureSensors()[i];
+        double temperature = 0.0;
+        QDateTime time;
+        sensor->getMeasurementResult(temperature, time);
+        ui->temperatureSensorsTable->setItem(i, 0, new QTableWidgetItem(QString::number(sensor->getId())));
+        ui->temperatureSensorsTable->setItem(i, 1, new QTableWidgetItem(time.toString("dd.MM hh:mm:ss")));
+        ui->temperatureSensorsTable->setItem(i, 2, new QTableWidgetItem(QString::number(temperature) + "°C"));
+        if(temperature > -18.0)
+        {
+            QMessageBox::warning(this, "Warnung!", "Sensor " + QString::number(sensor->getId()) + " misst eine Temperatur von mehr als -18°C!!!");
+            ui->temperatureSensorsTable->setItem(i, 3, new QTableWidgetItem("Warnung: Temperatur zu hoch!"));
+        }
+        else
+        {
+            ui->temperatureSensorsTable->setItem(i, 3, new QTableWidgetItem("Temperatur in Ordnung"));
+        }
+    }
+     QTimer::singleShot(5000, this, SLOT(displayTemperatureSensorsResults()));
 }
 
 void MainWindow::on_shelfNumberInput_valueChanged(int newShelfNumber)

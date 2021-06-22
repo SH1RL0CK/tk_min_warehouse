@@ -49,7 +49,7 @@ void WarehouseController::createTemperatureSensors()
 {
     for(unsigned int i = 0; i < numberOfTemperatureSensors; i++)
     {
-       temperatureSensors[i] = new TemperatureSensor(i);
+       temperatureSensors[i] = new TemperatureSensor(i + 1);
     }
 }
 
