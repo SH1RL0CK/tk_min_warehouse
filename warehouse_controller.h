@@ -13,11 +13,13 @@ private:
     unsigned int numberOfRows;
     unsigned int numberOfCompartments;
     unsigned int numberOfTemperatureSensors;
-
     ShelfCompartment *firstCompartment;
     std::vector<TemperatureSensor*> temperatureSensors;
 public:
     WarehouseController();
+    unsigned int getNumberOfShelves() const;
+    unsigned int getNumberOfRows() const;
+    unsigned int getNumberOfCompartments() const;
     ShelfCompartment *getFirstCompartment() const;
     std::vector<TemperatureSensor*> getTemperatureSensors() const;
     void createWarehouseList();

@@ -4,6 +4,8 @@
 #include <QMainWindow>
 #include <QMessageBox>
 #include <QTimer>
+#include <QGraphicsScene>
+#include <QGraphicsRectItem>
 #include "warehouse_controller.h"
 
 QT_BEGIN_NAMESPACE
@@ -18,9 +20,13 @@ private:
     Ui::MainWindow *ui;
     WarehouseController *warehosueController;
     ShelfCompartment *currentCompartment;
+    QGraphicsScene *virtualWarehouseScene;
+    QGraphicsRectItem *currentCompartmentRect;
     void setUp();
+    void drawVirtualWarehouse();
     unsigned int getCurrentCompartmentId();
     void displayCurrentCompartment();
+    void displayLocationOfCurrentCompartment();
 
 private slots:
     void on_shelfNumberInput_valueChanged(int newShelfNumber);
